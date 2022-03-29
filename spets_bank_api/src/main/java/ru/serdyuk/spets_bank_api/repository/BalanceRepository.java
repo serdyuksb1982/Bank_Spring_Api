@@ -13,11 +13,18 @@ import java.util.Map;
 public class BalanceRepository {
     private final Map<Long, BigDecimal> storage;
 
+
     public BalanceRepository() {
-        storage = new HashMap<>(Map.of(1L, BigDecimal.ZERO));
+        storage = new HashMap<>(Map.of(1L, BigDecimal.valueOf(100)));
     }
 
     public BigDecimal getBalanceForId(Long accountId) {
         return storage.get(accountId);
+    }
+
+
+
+    public void save(Long id, BigDecimal amount) {
+       storage.put(id, amount);
     }
 }

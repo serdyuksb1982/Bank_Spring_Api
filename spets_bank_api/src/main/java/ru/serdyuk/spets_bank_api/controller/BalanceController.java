@@ -1,6 +1,7 @@
 package ru.serdyuk.spets_bank_api.controller;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ru.serdyuk.spets_bank_api.service.BankService;
@@ -14,6 +15,7 @@ import java.math.BigDecimal;
 @Controller
 @RestController("/balance")
 @AllArgsConstructor
+@Slf4j
 public class BalanceController {
 
     private BankService bankService;
@@ -33,5 +35,11 @@ public class BalanceController {
     @PostMapping("/transfer")
     public void transfer(@RequestBody TransferBalance transferBalance) {
         bankService.makeTransfer(transferBalance);
+    }
+
+    @ExceptionHandler
+    public String IllegalArgExceptionFromBalance(IllegalArgumentException e) {
+        log.error(e.getMessage());
+        return "Bed request!";
     }
 }
